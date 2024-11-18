@@ -1,0 +1,6 @@
+<p>products works!</p>
+@if(products$ | async; as products) {
+  @for (p of products; track p.id) {
+    <p>{{ p.title }} {{ p.price }}</p>
+  }
+}
