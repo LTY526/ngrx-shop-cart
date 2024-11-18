@@ -6,6 +6,10 @@ export class Product {
     this.category = '';
     this.description = '';
     this.image = '';
+    this.rating = {
+      rate: 0,
+      count: 0,
+    };
   }
   id: number;
   title: string;
@@ -13,4 +17,8 @@ export class Product {
   category: string;
   description: string;
   image: string;
+  rating: {
+    rate: number;
+    count: number;
+  }
 }

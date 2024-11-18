@@ -1,10 +1,27 @@
-<p>products works!</p>
-@if(loading$ | async) {
-  <p>Loading...</p>
-}
-@if(products$ | async; as products) {
-  @for (p of products; track p.id) {
-    <p>{{ p.title }} {{ p.price }}</p>
-  }
-}
-<button (click)="this.refresh.next(null)">Refresh</button>
+<tui-loader [overlay]="true" [showLoader]="(loading$ | async) ?? false">
+  <button size="m" tuiButton type="button" (click)="this.refresh.next(null)">Refresh</button>
+  <table tuiTable [columns]="['id', 'title', 'description', 'price', 'category']">
+    <thead>
+    <tr tuiThGroup>
+      <th tuiTh>Id</th>
+      <th tuiTh>Title</th>
+      <th tuiTh>Description</th>
+      <th tuiTh>Price</th>
+      <th tuiTh>Category</th>
+    </tr>
+    </thead>
+    <tbody tuiTbody [data]="(products$ | async) ?? []">
+      @if(products$ | async; as products) {
+        @for (p of products; track p.id) {
+          <tr tuiTr>
+            <td tuiTd>{{ p.id }}</td>
+            <td tuiTd>{{ p.title }}</td>
+            <td tuiTd>{{ p.description }}</td>
+            <td tuiTd>{{ p.price }}</td>
+            <td tuiTd>{{ p.category }}</td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</tui-loader>

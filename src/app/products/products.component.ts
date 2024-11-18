@@ -7,13 +7,13 @@ import { getProducts, getProductsErrorMessage, getProductsLoading } from '../_ng
 import { ProductsApiActions } from '../_ngrx/products/products.actions';
 import { AsyncPipe } from '@angular/common';
 import { QueryModel } from '../_models/query-model';
+import { TuiTable } from '@taiga-ui/addon-table';
+import { TuiButton, TuiLoader } from '@taiga-ui/core';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [
-    AsyncPipe,
-  ],
+  imports: [AsyncPipe, TuiTable, TuiButton, TuiLoader],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
 })
