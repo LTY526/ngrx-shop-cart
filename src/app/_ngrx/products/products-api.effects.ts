@@ -10,7 +10,6 @@ export const getProductsFromApi = createEffect(
     return actions$.pipe(
       ofType(ProductsApiActions.loadProductList),
       switchMap(({ queryModel }) => {
-        console.log('Query Model:', queryModel);
         return http.get<Product[]>('https://fakestoreapi.com/products').pipe(
           map(products => products), // do filter here
         );

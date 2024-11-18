@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, distinctUntilChanged, map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, map, merge, Observable, tap } from 'rxjs';
 import { Product } from '../_models/product.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../_ngrx/app.state';
@@ -25,10 +25,10 @@ export class ProductsComponent implements OnInit {
     page: 1,
   };
   products$: Observable<Product[]> = this.store.select(getProducts);
-  errorMessages$: Observable<(string | null)[]> = combineLatest([
+  errorMessages$: Observable<string> = merge(
     this.store.select(getProductsErrorMessage).pipe(distinctUntilChanged()),
-  ]).pipe(
-    map((values: (string | null)[]) => values.filter(value => value !== null)),
+  ).pipe(
+    filter((value) => value !== null),
   );
   loading$: Observable<boolean> = combineLatest([
     this.store.select(getProductsLoading)
@@ -42,8 +42,8 @@ export class ProductsComponent implements OnInit {
     ).subscribe();
 
     this.errorMessages$.pipe( // Method 2 of displaying error (Method 1 is in products-api.effect)
-      tap((errors) => {
-        errors.forEach(error => console.error('(Method 2) Error:', error));
+      tap((error) => {
+        console.error('(Method 2) Error:', error)
       })
     ).subscribe();
   }
