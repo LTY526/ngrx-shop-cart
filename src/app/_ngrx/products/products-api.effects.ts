@@ -11,8 +11,6 @@ export const getProductsFromApi = createEffect(
       ofType(ProductsApiActions.loadProductList),
       switchMap(({ queryModel }) => {
         console.log('Query Model:', queryModel);
-        // For triggering error:
-        // return http.get<Product[]>('https://fakestoreapi.com/products1').pipe(
         return http.get<Product[]>('https://fakestoreapi.com/products').pipe(
           map(products => products), // do filter here
         );
@@ -24,7 +22,7 @@ export const getProductsFromApi = createEffect(
   { functional: true }
 );
 
-// Method 1 of displaying error
+// Method 1 of displaying error (Method 2 is in products.component)
 export const displayProductsApiError = createEffect(
   (actions$ = inject(Actions)) => {
     return actions$.pipe(

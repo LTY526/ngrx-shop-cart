@@ -1,12 +1,15 @@
 import { createSelector } from '@ngrx/store';
 import { AppState } from '../app.state';
-import { DataState } from '../../_models/data-state';
+import { DataState, DataStateStatus } from '../../_models/data-state';
 import { Product } from '../../_models/product.model';
 
-export const productsApi = (state: AppState) => state.productsApi;
+export const productListApi = (state: AppState) => state.productListApi;
 
 export const getProducts = createSelector(
-  productsApi, (state: DataState<Product>) => state.data);
+  productListApi, (state: DataState<Product>): Product[] => state.data);
+
+export const getProductsLoading = createSelector(
+  productListApi, (state: DataState<Product>): boolean => state.status === DataStateStatus.Loading);
 
 export const getProductsErrorMessage = createSelector(
-  productsApi, (state: DataState<Product>) => state.error);
+  productListApi, (state: DataState<Product>): string | null => state.error);

@@ -1,6 +1,10 @@
 <p>products works!</p>
+@if(loading$ | async) {
+  <p>Loading...</p>
+}
 @if(products$ | async; as products) {
   @for (p of products; track p.id) {
     <p>{{ p.title }} {{ p.price }}</p>
   }
 }
+<button (click)="this.refresh.next(null)">Refresh</button>

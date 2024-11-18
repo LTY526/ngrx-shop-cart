@@ -2,14 +2,6 @@ import { createActionGroup, props } from '@ngrx/store';
 import { Product } from '../../_models/product.model';
 import { QueryModel } from '../../_models/query-model';
 
-export const AdminProductsActions = createActionGroup({
-  source: 'Products',
-  events: {
-    'Register Product': props<Product>(),
-    'Remove Product': props<{ productId: number }>(),
-  },
-});
-
 export const ProductsApiActions = createActionGroup({
   source: 'Product List API',
   events: {
