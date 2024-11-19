@@ -42,9 +42,7 @@ export class ProductsComponent implements OnInit {
     ).subscribe();
 
     this.errorMessages$.pipe( // Method 2 of displaying error (Method 1 is in products-api.effect)
-      tap((error) => {
-        console.error('(Method 2) Error:', error)
-      })
+      tap((error) => console.error('(Method 2) Error:', error))
     ).subscribe();
   }
 }
